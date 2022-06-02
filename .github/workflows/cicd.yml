@@ -1,0 +1,20 @@
+name: cicd
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-dev:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: jiridj/wm-apigw-actions-register-api@v1
+        with: 
+          apigw-url: ${{ secrets.APIGW_URL }}
+          apigw-username: ${{ secrets.APIGW_USERNAME }}
+          apigw-password: ${{ secrets.APIGW_PASSWORD }}
+          api-spec: swagger.json
+          set-active: true
+          debug: ${{ secrets.ACTIONS_STEP_DEBUG }}
